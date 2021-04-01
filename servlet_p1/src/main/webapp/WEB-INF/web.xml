@@ -9,9 +9,19 @@
       <servlet-class>servlets.HelloServlet</servlet-class>
   </servlet>
   
+  <servlet>
+      <servlet-name>servlet_operation</servlet-name>
+      <servlet-class>servlets.HelloOperation</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
   	<servlet-name>servlet_hello</servlet-name>
   	<url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>servlet_operation</servlet-name>
+  	<url-pattern>/operation</url-pattern>
   </servlet-mapping>
   
   
