@@ -29,6 +29,7 @@ public class UserServlet extends HttpServlet {
 		htmlcode +="<h1> Userss  </h1>  <ul>" ;
 		
 		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		Connection cnx =  DriverManager.getConnection("jdbc:mysql://localhost/supemir", "root","password");
 		
 		if(cnx !=null) {
