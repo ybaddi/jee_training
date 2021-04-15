@@ -10,18 +10,28 @@ import java.util.Date;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 
 public class HelloOperation extends HttpServlet {
 
-////	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		
-//	 handle(request,  response)		;
-//		
-//		
-//		
-//	}
+ public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+	 
+	 HttpSession session = request.getSession();
+	 
+	 if(session.isNew()) {
+		 System.out.println("la session est new");
+	 }else {
+		 System.out.println("la session exist deja with id " + session.getId());
+	 }
+	 
+	 handle(request,  response)		;
+		
+		
+		
+	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -39,7 +49,19 @@ public class HelloOperation extends HttpServlet {
 		String val2 = request.getParameter("val2");
 		
 
-		String op = request.getParameter("op");
+		String op ;
+		
+		
+		String opFromUrl= request.getParameter("op");
+		
+		if(opFromUrl !=null) {
+			op = opFromUrl;
+		}else {
+			op = getServletConfig().getInitParameter("operator");
+		}
+		
+		
+		
 		int res=0;
 		
 		
