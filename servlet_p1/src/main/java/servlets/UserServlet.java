@@ -10,8 +10,10 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +24,13 @@ import com.company.models.User;
 
 public class UserServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 	
 		String htmlcode = "<html> <body> ";
 		htmlcode +="<h1> Userss  </h1>  <ul>" ;
+		
+		ArrayList<User> users = new ArrayList<User>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -52,16 +56,18 @@ public class UserServlet extends HttpServlet {
 			
 			ResultSet resultSet = statment.executeQuery(sqlSelect);
 			
+			
+			
 			while (resultSet.next()) {
 				long idresult = resultSet.getLong("id");
 				String firstnameresult = resultSet.getString("firstname");
 				String secondnameresult = resultSet.getString("secondname");
 				String emailresult = resultSet.getString("email");
-				Timestamp createdDate = resultSet.getTimestamp("CREATED_DATE");
+//				Timestamp createdDate = resultSet.getTimestamp("CREATED_DATE");
 				
-				User user = new User(idresult, firstnameresult, secondnameresult,emailresult,  createdDate.toLocalDateTime());
+				User user = new User(idresult, firstnameresult, secondnameresult,emailresult,  LocalDateTime.now());
 				
-				
+				users.add(user);
 				System.out.println(user);
 				
 				htmlcode +="<li> " + user + "</li> " ;
@@ -83,6 +89,9 @@ public class UserServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.println(htmlcode);
+		
+		request.setAttribute("users", users);
+	    request.getRequestDispatcher("WEB-INF/users.jsp").forward(request, response);
 		
 		
 	}
