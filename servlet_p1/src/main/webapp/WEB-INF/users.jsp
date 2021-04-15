@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
  <%@page import="java.util.ArrayList" %>
   <%@page import="com.company.models.User" %>
  
@@ -26,11 +28,11 @@
    <tbody>
    <% for(User u : users){ %>
    <tr>
-      <td> <%= u.getId() %> </td>
-      <td> <%= u.getFirstname() %> </td>
-      <td> <%= u.getSecondname() %> </td>
-      <td> <%= u.getEmail() %> </td>
-      <td> <%= u.getCreated_date() %> </td>
+      <td> <c:out value="u.getId()" /> </td>
+      <td> <c:out value="u.getFirstname()" /> </td>
+      <td> <c:out value="u.getSecondname()" /> </td>
+      <td> <c:out value="u.getEmail()" /> </td>
+      <td> <c:out value="u.getCreated_date()" /></td>
    </tr>
   
    <%} %>
